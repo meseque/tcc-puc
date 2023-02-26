@@ -1,0 +1,10 @@
+# Ignorar a pastas com informações sensiveis
+key/
+.terraform/
+# Ignorar arquivos sensiveis Terraform
+variables.tf
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+#terraform.tfstate
+#terraform.tfstate.backup
