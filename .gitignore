@@ -3,8 +3,9 @@ key/
 .terraform/
 .git/
 # Ignorar arquivos sensiveis Terraform
-*.variables.tf
-*.terraform.lock.hcl
-*.terraform.tfstate
-*.terraform.tfstate.backup
-
+variables.tf
+terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+#terraform.tfstate
+#terraform.tfstate.backup
