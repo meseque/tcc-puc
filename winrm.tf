@@ -4,8 +4,8 @@
 # Use the setup.ps1 as a template and pass the block volume ipv4 and iqn for ISCSI
 data "template_file" "setup_ps1" {
   vars = {
-    volume_ipv4 = oci_core_volume_attachment.tsap_volume_attachment.ipv4
-    volume_iqn  = oci_core_volume_attachment.tsap_volume_attachment.iqn
+    volume_ipv4 = oci_core_volume_attachment.pub_volume_attachment.ipv4
+    volume_iqn  = oci_core_volume_attachment.pub_volume_attachment.iqn
   }
 
   template = file("${var.userdata}/${var.setup_ps1}")
@@ -68,8 +68,8 @@ variable "is_winrm_configured_for_ssl" {
 
 resource "null_resource" "wait_for_cloudinit" {
   depends_on = [
-    oci_core_instance.tsap_instance,
-    oci_core_volume_attachment.tsap_volume_attachment,
+    oci_core_instance.pub_instance,
+    oci_core_volume_attachment.pub_volume_attachment,
   ]
 
   count = var.is_winrm_configured_for_image == "true" ? 1 : 0
@@ -84,8 +84,8 @@ resource "null_resource" "wait_for_cloudinit" {
 resource "null_resource" "remote-exec-windows" {
   # Although we wait on the wait_for_cloudinit resource, the configuration may not be complete, if this step fails please retry
   depends_on = [
-    oci_core_instance.tsap_instance,
-    oci_core_volume_attachment.tsap_volume_attachment,
+    oci_core_instance.pub_instance,
+    oci_core_volume_attachment.pub_volume_attachment,
     null_resource.wait_for_cloudinit,
   ]
 
@@ -97,7 +97,7 @@ resource "null_resource" "remote-exec-windows" {
       type     = "winrm"
       agent    = false
       timeout  = "1m"
-      host     = oci_core_instance.tsap_instance.public_ip
+      host     = oci_core_instance.pub_instance.public_ip
       user     = data.oci_core_instance_credentials.instance_credentials.username
       password = random_string.instance_password.result
       port     = var.is_winrm_configured_for_ssl == "true" ? 5986 : 5985
@@ -114,7 +114,7 @@ resource "null_resource" "remote-exec-windows" {
       type     = "winrm"
       agent    = false
       timeout  = "1m"
-      host     = oci_core_instance.tsap_instance.public_ip
+      host     = oci_core_instance.pub_instance.public_ip
       user     = data.oci_core_instance_credentials.instance_credentials.username
       password = random_string.instance_password.result
       port     = var.is_winrm_configured_for_ssl == "true" ? 5986 : 5985
