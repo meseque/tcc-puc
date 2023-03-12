@@ -124,7 +124,7 @@ resource "oci_core_instance" "pub_instance" {
   }
 
   create_vnic_details {
-    subnet_id      = oci_core_subnet.tsplus_subnet.id
+    subnet_id      = oci_core_subnet.pub_subnet.id
     hostname_label = "PUBINSTANCE"
   }
 
@@ -185,7 +185,8 @@ resource "oci_core_instance" "tsap01_instance" {
   }
 
   create_vnic_details {
-    subnet_id      = oci_core_subnet.tsplus_subnet.id
+    subnet_id      = oci_core_subnet.private1_subnet.id
+    assign_public_ip = "false"
     hostname_label = "TSAP01"
   }
 
@@ -223,9 +224,9 @@ output "password_ap1" {
   value = [random_string.instance_password.result]
 }
 
-output "instance_ap1_public_ip" {
+/*output "instance_ap1_public_ip" {
   value = [oci_core_instance.tsap01_instance.public_ip]
-}
+}*/
 
 output "instance_ap1_private_ip" {
   value = [oci_core_instance.tsap01_instance.private_ip]
@@ -246,7 +247,8 @@ resource "oci_core_instance" "tsap02_instance" {
   }
 
   create_vnic_details {
-    subnet_id      = oci_core_subnet.tsplus_subnet.id
+    subnet_id      = oci_core_subnet.private2_subnet.id
+    assign_public_ip = "false"
     hostname_label = "TSAP02"
   }
 
@@ -284,9 +286,9 @@ output "password_ap2" {
   value = [random_string.instance_password.result]
 }
 
-output "instance_ap2_public_ip" {
+/*output "instance_ap2_public_ip" {
   value = [oci_core_instance.tsap01_instance.public_ip]
-}
+}*/
 
 output "instance_ap2_private_ip" {
   value = [oci_core_instance.tsap01_instance.private_ip]
