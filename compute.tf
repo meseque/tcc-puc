@@ -286,10 +286,6 @@ output "password_ap2" {
   value = [random_string.instance_password.result]
 }
 
-/*output "instance_ap2_public_ip" {
-  value = [oci_core_instance.tsap01_instance.public_ip]
-}*/
-
 output "instance_ap2_private_ip" {
   value = [oci_core_instance.tsap01_instance.private_ip]
 }
