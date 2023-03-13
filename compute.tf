@@ -185,9 +185,9 @@ resource "oci_core_instance" "tsap01_instance" {
   }
 
   create_vnic_details {
-    subnet_id      = oci_core_subnet.private1_subnet.id
+    subnet_id        = oci_core_subnet.private1_subnet.id
     assign_public_ip = "false"
-    hostname_label = "TSAP01"
+    hostname_label   = "TSAP01"
   }
 
   source_details {
@@ -247,9 +247,9 @@ resource "oci_core_instance" "tsap02_instance" {
   }
 
   create_vnic_details {
-    subnet_id      = oci_core_subnet.private2_subnet.id
+    subnet_id        = oci_core_subnet.private2_subnet.id
     assign_public_ip = "false"
-    hostname_label = "TSAP02"
+    hostname_label   = "TSAP02"
   }
 
   source_details {
